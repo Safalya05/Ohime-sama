@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Delivery</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #scene {
+            position: relative;
+            width: 800px;
+            height: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        #ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            background-color: #d4edda;
+        }
+        
+        #boy {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            width: 120px;
+            height: 200px;
+            transition: left 3s ease-in-out;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><circle cx="50" cy="40" r="30" fill="%23678cfe" stroke="%23333" stroke-width="2"/><circle cx="40" cy="35" r="5" fill="%23333"/><circle cx="60" cy="35" r="5" fill="%23333"/><path d="M45 55 Q50 65 55 55" fill="none" stroke="%23333" stroke-width="2"/><rect x="30" y="70" width="40" height="80" fill="%23678cfe" stroke="%23333" stroke-width="2"/><rect x="20" y="80" width="20" height="60" fill="%23678cfe" stroke="%23333" stroke-width="2"/><rect x="60" y="80" width="20" height="60" fill="%23678cfe" stroke="%23333" stroke-width="2"/><path d="M40 150 L60 150 L55 180 L45 180 Z" fill="%23f8d7da" stroke="%23333" stroke-width="2"/></svg>');
+            background-repeat: no-repeat;
+        }
+        
+        #girl {
+            position: absolute;
+            bottom: 100px;
+            right: 100px;
+            width: 120px;
+            height: 200px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><circle cx="50" cy="40" r="30" fill="%23ffb6c1" stroke="%23333" stroke-width="2"/><circle cx="40" cy="35" r="5" fill="%23333"/><circle cx="60" cy="35" r="5" fill="%23333"/><path d="M45 55 Q50 65 55 55" fill="none" stroke="%23333" stroke-width="2"/><path d="M30 70 Q50 90 70 70 L70 150 Q50 170 30 150 Z" fill="%23ffb6c1" stroke="%23333" stroke-width="2"/><rect x="20" y="80" width="20" height="60" fill="%23ffb6c1" stroke="%23333" stroke-width="2"/><rect x="60" y="80" width="20" height="60" fill="%23ffb6c1" stroke="%23333" stroke-width="2"/></svg>');
+            background-repeat: no-repeat;
+        }
+        
+        #rose {
+            position: absolute;
+            bottom: 150px;
+            left: 150px;
+            width: 40px;
+            height: 40px;
+            opacity: 0;
+            transition: opacity 1s, transform 1s, bottom 1s;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 10 Q20 0 15 10 Q10 20 25 30 Q40 20 35 10 Q30 0 25 10 Z" fill="%23e91e63"/><path d="M25 30 L25 45" stroke="%234caf50" stroke-width="3"/><path d="M25 35 L20 40" stroke="%234caf50" stroke-width="2"/><path d="M25 38 L15 43" stroke="%234caf50" stroke-width="2"/></svg>');
+            background-repeat: no-repeat;
+        }
+        
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+            max-width: 300px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            font-family: 'Comic Sans MS', cursive;
+            min-width: 80px;
+        }
+        
+        #yesBtn {
+            background-color: #4CAF50;
+        }
+        
+        #noBtn {
+            background-color: #f44336;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #e91e63;
+            animation: float 3s ease-in infinite;
+            opacity: 0;
+        }
+        
+        #loveMessage {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+            max-width: 300px;
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 24px;
+            color: #e91e63;
+        }
+        
+        #mustClick {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #e91e63;
+            font-family: 'Comic Sans MS', cursive;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        
+        @keyframes kneel {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene">
+        <div id="ground"></div>
+        <div id="boy"></div>
+        <div id="girl"></div>
+        <div id="rose"></div>
+        <div id="message">
+            <h2>For You, My Love!</h2>
+            <p>Will you accept this rose?</p>
+            <div class="buttons">
+                <button id="yesBtn">YES</button>
+                <button id="noBtn">NO</button>
+            </div>
+        </div>
+        <div id="loveMessage">I Love You!</div>
+        <div id="mustClick">You must click YES!</div>
+    </div>
+
+    <script>
+        const boy = document.getElementById('boy');
+        const girl = document.getElementById('girl');
+        const rose = document.getElementById('rose');
+        const message = document.getElementById('message');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const loveMessage = document.getElementById('loveMessage');
+        const mustClick = document.getElementById('mustClick');
+        const scene = document.getElementById('scene');
+        
+        // Initial animation sequence
+        function startAnimation() {
+            // Reset positions
+            boy.style.left = '50px';
+            boy.style.transform = 'translateY(0)';
+            rose.style.opacity = '0';
+            rose.style.bottom = '150px';
+            message.style.opacity = '0';
+            loveMessage.style.opacity = '0';
+            mustClick.style.opacity = '0';
+            
+            // Reset buttons
+            yesBtn.style.display = 'block';
+            noBtn.style.display = 'block';
+            
+            // Clear existing hearts
+            document.querySelectorAll('.heart').forEach(heart => heart.remove());
+            
+            // Boy walks to girl
+            setTimeout(() => {
+                boy.style.left = '300px';
+                
+                // When boy reaches girl
+                setTimeout(() => {
+                    // Boy kneels
+                    boy.style.transform = 'translateY(40px)';
+                    boy.style.backgroundImage = 'url(\'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><circle cx="50" cy="40" r="30" fill="%23678cfe" stroke="%23333" stroke-width="2"/><circle cx="40" cy="35" r="5" fill="%23333"/><circle cx="60" cy="35" r="5" fill="%23333"/><path d="M45 55 Q50 65 55 55" fill="none" stroke="%23333" stroke-width="2"/><rect x="30" y="70" width="40" height="60" fill="%23678cfe" stroke="%23333" stroke-width="2"/><path d="M30 130 L50 150 L70 130" fill="%23f8d7da" stroke="%23333" stroke-width="2"/><path d="M40 110 L20 80" fill="%23678cfe" stroke="%23333" stroke-width="2"/><path d="M60 110 L80 80" fill="%23678cfe" stroke="%23333" stroke-width="2"/></svg>\')';
+                    
+                    // Show rose
+                    setTimeout(() => {
+                        rose.style.left = '350px';
+                        rose.style.bottom = '120px';
+                        rose.style.opacity = '1';
+                        rose.style.transform = 'scale(1.5)';
+                        
+                        // Show message
+                        setTimeout(() => {
+                            message.style.opacity = '1';
+                        }, 1000);
+                    }, 1000);
+                }, 3000);
+            }, 500);
+        }
+        
+        // Create floating hearts
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 700 + 50 + 'px';
+                    heart.style.bottom = '200px';
+                    scene.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 300);
+            }
+        }
+        
+        // YES button click handler
+        yesBtn.addEventListener('click', () => {
+            loveMessage.style.opacity = '1';
+            createHearts();
+            message.style.opacity = '0';
+            mustClick.style.opacity = '0';
+        });
+        
+        // NO button click handler
+        noBtn.addEventListener('click', () => {
+            noBtn.style.display = 'none';
+            mustClick.style.opacity = '1';
+            
+            // Make the NO button move away when hovered (before it disappears)
+            noBtn.addEventListener('mouseover', () => {
+                noBtn.style.display = 'none';
+            });
+        });
+        
+        // Start animation when page loads
+        window.onload = startAnimation;
+    </script>
+</body>
+</html>
